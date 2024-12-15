@@ -3,6 +3,12 @@ import Home from "./Home";
 import Cart from "./Cart";
 import Register from "./Register";
 import Login from "./Login";
+import {
+  HomeIcon,
+  ShoppingCartIcon,
+  UserPlusIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/solid";
 
 const Navbar = () => {
   const [view, setView] = useState("home"); // Estado para cambiar entre las vistas
@@ -22,7 +28,8 @@ const Navbar = () => {
                     : "text-gray-300 hover:bg-gray-700 hover:text-white"
                 }`}
               >
-                Home
+                <HomeIcon className="h-5 w-5" />
+                <span>Home</span>
               </button>
               <button
                 onClick={() => setView("cart")}
@@ -32,7 +39,8 @@ const Navbar = () => {
                     : "text-gray-300 hover:bg-gray-700 hover:text-white"
                 }`}
               >
-                Carrito
+                <ShoppingCartIcon className="h-5 w-5" />
+                <span>Carrito</span>
               </button>
               <button
                 onClick={() => setView("register")}
@@ -42,7 +50,8 @@ const Navbar = () => {
                     : "text-gray-300 hover:bg-gray-700 hover:text-white"
                 }`}
               >
-                Registro
+                <UserPlusIcon className="h-5 w-5" />
+                <span>Registro</span>
               </button>
               <button
                 onClick={() => setView("login")}
@@ -52,7 +61,8 @@ const Navbar = () => {
                     : "text-gray-300 hover:bg-gray-700 hover:text-white"
                 }`}
               >
-                Iniciar Sesión
+                <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                <span>Iniciar sesión</span>
               </button>
             </div>
           </div>

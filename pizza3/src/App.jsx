@@ -2,16 +2,17 @@ import React from "react";
 import Navbar from "./assets/components/Navbar";
 import Home from "./assets/components/Home";
 import Cart from "./assets/components/Cart";
-// import Register from "./components/Register";
-// import Login from "./components/Login";
+import { CartProvider } from "./assets/components/CartContext";
 
 const App = () => {
   return (
     <div>
-      <Navbar />
-      {/* Cambiar entre Home y Cart según el desafío */}
-      <Home />
-      {/* <Cart /> */}
+      <CartProvider>
+        <Navbar />
+
+        <Home />
+        <Cart />
+      </CartProvider>
     </div>
   );
 };

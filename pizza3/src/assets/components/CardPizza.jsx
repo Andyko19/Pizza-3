@@ -1,6 +1,9 @@
 import React from "react";
+import { useCart } from "../components/CartContext";
 
-const CardPizza = ({ pizza, increaseQuantity, decreaseQuantity }) => {
+const CardPizza = ({ pizza }) => {
+  const { addToCart } = useCart();
+
   return (
     <div className="bg-white shadow-md rounded-md p-4">
       <img
@@ -17,19 +20,12 @@ const CardPizza = ({ pizza, increaseQuantity, decreaseQuantity }) => {
           </li>
         ))}
       </ul>
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-4">
         <button
-          onClick={() => decreaseQuantity(pizza.id)}
-          className="bg-red-500 text-white px-3 py-1 rounded-md"
+          onClick={() => addToCart(pizza)}
+          className="bg-blue-500 text-white px-3 py-1 rounded-md w-full"
         >
-          -
-        </button>
-        <span className="text-lg font-bold">{pizza.quantity}</span>
-        <button
-          onClick={() => increaseQuantity(pizza.id)}
-          className="bg-green-500 text-white px-3 py-1 rounded-md"
-        >
-          +
+          Agregar al carrito
         </button>
       </div>
     </div>
