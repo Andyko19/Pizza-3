@@ -11,7 +11,6 @@ const App = () => {
         <Navbar />
 
         <Home />
-        <Cart />
       </CartProvider>
     </div>
   );

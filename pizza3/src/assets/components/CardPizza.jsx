@@ -7,7 +7,7 @@ const CardPizza = ({ pizza }) => {
   return (
     <div className="bg-white shadow-md rounded-md p-4">
       <img
-        src={pizza.image}
+        src={pizza.img}
         alt={pizza.name}
         className="w-full h-40 object-cover rounded-md"
       />

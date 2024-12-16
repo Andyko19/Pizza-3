@@ -14,7 +14,7 @@ const Cart = () => {
             className="flex items-center justify-between mb-4"
           >
             <img
-              src={pizza.image}
+              src={pizza.img}
               alt={pizza.name}
               className="w-16 h-16 rounded-md"
             />
