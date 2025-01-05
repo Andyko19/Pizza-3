@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart } from "../components/CartContext";
+import { Link } from "react-router-dom";
 
 const CardPizza = ({ pizza }) => {
   const { addToCart } = useCart();
@@ -20,10 +21,18 @@ const CardPizza = ({ pizza }) => {
           </li>
         ))}
       </ul>
-      <div className="mt-4">
+      <div className="mt-4 flex justify-between items-center">
+        {/* Botón "Ver más" */}
+        <Link
+          to={`/pizza/${pizza.id}`}
+          className="bg-gray-300 text-gray-700 px-3 py-1 rounded-md hover:bg-gray-400"
+        >
+          Ver más
+        </Link>
+        {/* Botón "Agregar al carrito" */}
         <button
           onClick={() => addToCart(pizza)}
-          className="bg-blue-500 text-white px-3 py-1 rounded-md w-full"
+          className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600"
         >
           Agregar al carrito
         </button>

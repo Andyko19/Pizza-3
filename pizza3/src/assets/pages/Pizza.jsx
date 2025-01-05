@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Pizza = () => {
+  const { id } = useParams(); // Obtener el ID de la pizza desde la URL
   const [pizza, setPizza] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("useEffect - Componente montado o actualizado");
     const fetchPizza = async () => {
       try {
-        console.log("Iniciando la solicitud de pizza específica...");
-        const response = await fetch("http://localhost:5000/api/pizzas");
+        const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
         if (!response.ok) {
           throw new Error("Error al obtener la pizza");
         }
         const data = await response.json();
-        console.log("Datos de la pizza obtenidos:", data);
-        setPizza(data); // Guardar los detalles de la pizza
+        setPizza(data);
         setLoading(false);
       } catch (error) {
         console.error("Error al consumir la API:", error);
@@ -24,23 +23,20 @@ const Pizza = () => {
     };
 
     fetchPizza();
-    return () => {
-      console.log("useEffect - Componente desmontado");
-    };
-  }, []);
+  }, [id]);
 
   if (loading) {
-    return <p className="text-center text-gray-500">Cargando pizza...</p>;
+    return <p>Cargando pizza...</p>;
   }
 
   if (!pizza) {
-    return <p className="text-center text-red-500">No se encontró la pizza.</p>;
+    return <p>No se encontró la pizza.</p>;
   }
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-6">
       <img
-        src={pizza.image}
+        src={pizza.img}
         alt={pizza.name}
         className="w-full h-64 object-cover rounded-md"
       />
@@ -55,12 +51,6 @@ const Pizza = () => {
           </li>
         ))}
       </ul>
-      <button
-        className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md w-full"
-        disabled
-      >
-        Agregar al carrito (Sin funcionalidad)
-      </button>
     </div>
   );
 };
