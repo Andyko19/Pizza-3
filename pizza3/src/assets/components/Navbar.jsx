@@ -6,8 +6,9 @@ import {
   UserPlusIcon,
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
-
+import { useCart } from "../context/CartContext";
 const Navbar = () => {
+  const { total } = useCart();
   return (
     <div>
       <nav className="bg-navbar bg-cover bg-center h-16">
@@ -43,6 +44,9 @@ const Navbar = () => {
                 <ArrowRightOnRectangleIcon className="h-5 w-5" />
                 <span>Iniciar sesión</span>
               </Link>
+            </div>
+            <div className="flex items-center space-x-2 text-gray-200 text-sm font-medium">
+              <ShoppingCartIcon className="h-5 w-5" />: ${total.toFixed(2)}
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ import Pizza from "./assets/pages/Pizza";
 import Prole from "./assets/components/Prole";
 import NotFound from "./assets/components/NotFound";
 import Footer from "./assets/components/Footer";
-import { CartProvider } from "./assets/components/CartContext";
+import { CartProvider } from "./assets/context/CartProvider";
 
 const App = () => {
   return (
