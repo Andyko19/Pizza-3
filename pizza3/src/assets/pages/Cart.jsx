@@ -1,8 +1,10 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
+import { useUser } from "../context/UserContext";
 
 const Cart = () => {
   const { cart, increaseQuantity, decreaseQuantity, total } = useCart();
+  const { token } = useUser();
 
   return (
     <div className="p-6">
@@ -45,6 +47,16 @@ const Cart = () => {
       <div className="mt-6 p-4 bg-gray-100 rounded-md text-right">
         <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
       </div>
+      <button
+        className={`w-full py-2 px-4 rounded-md font-bold ${
+          token
+            ? "bg-green-500 text-white hover:bg-green-600"
+            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+        }`}
+        disabled={!token} // Deshabilita si token es false
+      >
+        Pagar
+      </button>
     </div>
   );
 };

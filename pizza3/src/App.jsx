@@ -9,6 +9,8 @@ import Pizza from "./assets/pages/Pizza";
 import Prole from "./assets/components/Prole";
 import NotFound from "./assets/components/NotFound";
 import Footer from "./assets/components/Footer";
+import ProtectedRoute from "./assets/routes/ProctectedRoute";
+import PublicRoute from "./assets/routes/PublicRoute";
 import { CartProvider } from "./assets/context/CartProvider";
 
 const App = () => {
@@ -20,10 +22,31 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/carrito" element={<Cart />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <Register />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
             <Route path="/pizza/:id" element={<Pizza />} />
-            <Route path="/prole" element={<Prole />} />
+            <Route
+              path="/prole"
+              element={
+                <ProtectedRoute>
+                  <Prole />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<NotFound />} /> {/* Ruta para 404 */}
           </Routes>
         </main>
