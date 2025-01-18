@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   HomeIcon,
   ShoppingCartIcon,
@@ -10,6 +11,7 @@ import {
 import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
 const Navbar = () => {
+  const setActiveClass = ({ isActive }) => (isActive ? "active" : undefined);
   const { total } = useCart();
   const { token, logout } = useUser();
   return (
@@ -19,29 +21,29 @@ const Navbar = () => {
           <div className="relative flex h-16 items-center justify-between">
             {/* Botones de navegación */}
             <div className="flex space-x-4">
-              <Link
+              <NavLink
                 to="/"
                 className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
                 <HomeIcon className="h-5 w-5" />
                 <span>Home</span>
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 to="/carrito"
                 className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
               >
                 <ShoppingCartIcon className="h-5 w-5" />
                 <span>Carrito</span>
-              </Link>
+              </NavLink>
               {token ? (
                 <>
-                  <Link
+                  <NavLink
                     to="/prole"
                     className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                   >
                     <UserIcon className="h-5 w-5" />
                     <span>Perfil</span>
-                  </Link>
+                  </NavLink>
                   <button
                     onClick={logout}
                     className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
@@ -52,20 +54,20 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Link
+                  <NavLink
                     to="/register"
                     className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                   >
                     <UserPlusIcon className="h-5 w-5" />
                     <span>Registro</span>
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to="/login"
                     className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                   >
                     <ArrowRightOnRectangleIcon className="h-5 w-5" />
                     <span>Iniciar sesión</span>
-                  </Link>
+                  </NavLink>
                 </>
               )}
             </div>

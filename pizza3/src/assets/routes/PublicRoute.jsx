@@ -6,7 +6,7 @@ const PublicRoute = ({ children }) => {
   const { token } = useUser();
 
   if (token) {
-    return <Navigate to="/prole" replace />;
+    return <Navigate to="/prole" />;
   }
 
   return children;
