@@ -1,24 +1,28 @@
 import React, { useState } from "react";
+import { useUser } from "../context/UserContext";
 
 const Login = () => {
+  const { login } = useUser(); // Usar el método login del contexto
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validación de campos vacíos
     if (!email || !password) {
       setMessage("Todos los campos son obligatorios.");
       return;
     }
-    // Validación de longitud mínima de la contraseña
     if (password.length < 6) {
       setMessage("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
-    // Si todo está correcto
-    setMessage("Inicio de sesión exitoso.");
+    try {
+      await login(email, password);
+      setMessage("Inicio de sesión exitoso.");
+    } catch (error) {
+      setMessage("Error al iniciar sesión.");
+    }
   };
 
   return (
@@ -77,4 +81,5 @@ const Login = () => {
   );
 };
 
+// Exportar por defecto
 export default Login;

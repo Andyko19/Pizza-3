@@ -1,30 +1,41 @@
 import React, { useState } from "react";
+import { useUser } from "../context/UserContext"; // Importar el contexto
 
 const Register = () => {
+  const { register } = useUser(); // Extraer el método register del contexto
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Validación de campos vacíos
     if (!email || !password || !confirmPassword) {
       setMessage("Todos los campos son obligatorios.");
       return;
     }
+
     // Validación de la longitud de la contraseña
     if (password.length < 6) {
       setMessage("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
+
     // Validación de coincidencia de contraseñas
     if (password !== confirmPassword) {
       setMessage("Las contraseñas no coinciden.");
       return;
     }
-    // Si todo está correcto
-    setMessage("Registro exitoso.");
+
+    // Intentar registrar al usuario
+    try {
+      await register(email, password); // Llamada al método register del UserContext
+      setMessage("Registro exitoso.");
+    } catch (error) {
+      setMessage("Error al registrar al usuario.");
+    }
   };
 
   return (

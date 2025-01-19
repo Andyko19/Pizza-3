@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
 
 const Cart = () => {
-  const { cart, increaseQuantity, decreaseQuantity, total } = useCart();
-  const { token } = useUser();
+  const { cart, increaseQuantity, decreaseQuantity, total } = useCart(); // Mantener las funciones originales
+  const { token } = useUser(); // Usar el token del contexto del usuario
+  const [message, setMessage] = useState(""); // Nuevo estado para el mensaje de éxito o error
+
+  // Función para manejar el checkout (enviar el carrito al backend)
+  const handleCheckout = async () => {
+    if (!token) {
+      setMessage("Debe iniciar sesión para realizar la compra.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/checkouts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ cart }), // Enviar el carrito al backend
+      });
+
+      if (response.ok) {
+        setMessage("Compra realizada con éxito."); // Mensaje de éxito
+      } else {
+        throw new Error("Error al realizar la compra."); // Manejo de error
+      }
+    } catch (error) {
+      setMessage("No se pudo completar la compra."); // Mensaje de error
+    }
+  };
 
   return (
     <div className="p-6">
@@ -48,15 +76,25 @@ const Cart = () => {
         <p className="text-xl font-bold">Total: ${total.toFixed(2)}</p>
       </div>
       <button
+        onClick={handleCheckout} // Llamar a la función de checkout
         className={`w-full py-2 px-4 rounded-md font-bold ${
           token
             ? "bg-green-500 text-white hover:bg-green-600"
             : "bg-gray-300 text-gray-500 cursor-not-allowed"
         }`}
-        disabled={!token} // Deshabilita si token es false
+        disabled={!token} // Deshabilita si no hay token
       >
         Pagar
       </button>
+      {message && (
+        <p
+          className={`mt-4 text-center font-bold ${
+            message.includes("éxito") ? "text-green-500" : "text-red-500"
+          }`}
+        >
+          {message}
+        </p>
+      )}
     </div>
   );
 };
